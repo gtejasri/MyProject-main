@@ -19,7 +19,7 @@ public class Dealer extends AbstractUser {
 	public void setDealerId(int dealerId) {
 		this.dealerId = dealerId;
 	}
-}
 
+}
 
 ///  farmer --   company  -- dealer  -- customer

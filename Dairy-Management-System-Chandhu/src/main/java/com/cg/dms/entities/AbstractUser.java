@@ -28,10 +28,10 @@ public abstract class AbstractUser {
 	@Pattern(regexp="^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$",message="Enter Valid Mail Id")
 	private String email;
 	
-	@NotEmpty
+	
 	private int milkunits;
 	
-	@NotEmpty
+	
 	private double unitprice;
 
 	public String getUsername() {

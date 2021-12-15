@@ -23,23 +23,23 @@ public class CustomerServiceTest {
 	@MockBean
 	ICustomerRepository customerRepository;
 	
-//	@Test
-//	void testInsertCustomer() {
-//	Customer c1 = new Customer();
-//	c1.setUsername("Tejasri");
-//	c1.setFirstName("Teja");
-//    c1.setLastName("sri");
-//	c1.setPassword("root");
-//	c1.setMobileNumber("8186835638");
-//	c1.setEmail("teja@123");
-//	c1.setMilkunits(20);
-//	c1.setUnitprice(30);
-//	c1.setCustomerId(1);
-//	
-//	Mockito.when(customerRepository.save(c1)).thenReturn(c1);
-//		
-//		assertThat(customerService.insertCustomer(c1)).isEqualTo(c1);
-//	}
+	@Test
+	void testInsertCustomer() {
+	Customer c1 = new Customer();
+	c1.setUsername("Tejasri");
+	c1.setFirstName("Teja");
+    c1.setLastName("sri");
+	c1.setPassword("root");
+	c1.setMobileNumber("8186835638");
+	c1.setEmail("teja@123");
+	c1.setMilkunits(20);
+	c1.setUnitprice(30);
+	c1.setCustomerId(1);
+	
+	Mockito.when(customerRepository.save(c1)).thenReturn(c1);
+		
+		assertThat(customerService.insertCustomer(c1)).isEqualTo(c1);
+	}
 	
 
 	
@@ -119,27 +119,27 @@ try {
 // 	e.printStackTrace();
 // 	}
 //	}
-// 		@Test
-// 		void testdeleteCustomer() {
-// 			Customer c1 = new Customer();
-// 			c1.setUsername("swathi");
-// 			c1.setFirstName("santhi");
-// 		    c1.setLastName("asdf");
-// 			c1.setPassword("asdf2123");
-// 			c1.setMobileNumber("7899923645");
-// 			c1.setEmail("as@123");
-// 			c1.setMilkunits(20);
-// 			c1.setUnitprice(30);
-// 			c1.setCustomerId(1);
-// 			
-// 			Mockito.when(customerRepository.save(c1)).thenReturn(c1);
-//            try {
-//				assertThat(customerService.deleteCustomer(3)).isEqualTo(c1);
-//			} catch (CustomerNotFoundException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-// 			}
+ 		@Test
+ 		void testdeleteCustomer() {
+ 			Customer c1 = new Customer();
+ 			c1.setUsername("swathi");
+ 			c1.setFirstName("santhi");
+ 		    c1.setLastName("asdf");
+ 			c1.setPassword("asdf2123");
+ 			c1.setMobileNumber("7899923645");
+ 			c1.setEmail("as@123");
+ 			c1.setMilkunits(20);
+ 			c1.setUnitprice(30);
+ 			c1.setCustomerId(1);
+ 			
+ 			Mockito.when(customerRepository.save(c1)).thenReturn(c1);
+            try {
+				assertThat(customerService.deleteCustomer(3)).isEqualTo(c1);
+			} catch (CustomerNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+ 			}
 }
 
 

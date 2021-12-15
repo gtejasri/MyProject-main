@@ -86,4 +86,30 @@ public class DealerController {
 		List<Company> list = iCompanyService.getAllCompany();
 		return list;
 	}
+	// http://localhost:8082/dealer/register
+		@PostMapping("/dealer/register")
+		public ResponseEntity<Dealer> register(@RequestBody Dealer dealer) {
+			LOG.info("register " + dealer.toString());
+			HttpHeaders headers = new HttpHeaders();
+			headers.add("message", "Dealer registered successfully.");
+			return new ResponseEntity<Dealer>(idealerService.register(dealer), headers, HttpStatus.CREATED);
+		}
+
+		// http://localhost:8082/dealer/login
+		@PostMapping("/dealer/login")
+		public ResponseEntity<Dealer> login(@RequestBody Dealer dealer) throws DealerNotFoundException {
+			LOG.info("login " + dealer.toString());
+			HttpHeaders headers = new HttpHeaders();
+			headers.add("message", "Dealer logged in successfully.");
+			return new ResponseEntity<Dealer>(idealerService.login(dealer), headers, HttpStatus.OK);
+		}
+
+		// http://localhost:8082/dealer/logout
+		@PostMapping("/dealer/logout")
+		public ResponseEntity<String> logout(@RequestBody String userName) throws DealerNotFoundException {
+			LOG.info("Controller logout");
+			HttpHeaders headers = new HttpHeaders();
+			headers.add("message", "Dealer logged out successfully.");
+			return new ResponseEntity<String>(idealerService.logout(userName), headers, HttpStatus.OK);
+		}
 }

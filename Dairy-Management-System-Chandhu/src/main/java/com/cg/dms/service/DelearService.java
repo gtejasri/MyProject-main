@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import com.cg.dms.entities.Dealer;
 import com.cg.dms.exception.DealAlreadyExistsException;
 import com.cg.dms.exception.DealerNotFoundException;
-import com.cg.dms.repository.ICompanyRepository;
 import com.cg.dms.repository.IDelearRepository;
 
 @Service
@@ -20,8 +19,11 @@ public class DelearService implements IDelearService {
 
 	@Autowired
 	private IDelearRepository iDealerRepository;
-	@Autowired
-	private ICompanyRepository iCompanyRepository;
+	
+	
+	public boolean isLoggedIn;
+
+	private Dealer tempUser;
 
 	// public Dealer insertDealer(Dealer dealer);
 	public Dealer insertDealer(Dealer dealer) throws DealAlreadyExistsException {
@@ -74,6 +76,36 @@ public class DelearService implements IDelearService {
 			LOG.info("Dealer is not available");
 			throw new DealerNotFoundException(dealerId + " this dealer is not found.");
 		}
+	}
+	
+	public Dealer register(Dealer dealer) {
+		LOG.info("register");
+		if (null == iDealerRepository.findByUserName(dealer.getUsername()))
+			return iDealerRepository.save(dealer);
+		throw new DealAlreadyExistsException();
+	}
+
+	public Dealer login(Dealer dealer) throws DealerNotFoundException {
+		LOG.info("login");
+		tempUser = iDealerRepository.findByUserName(dealer.getUsername());
+		if (null != tempUser) {
+			if (dealer.equals(tempUser)) {
+				isLoggedIn = true;
+				LOG.info("login successful");
+				return tempUser;
+			}
+		}
+		throw new DealerNotFoundException();
+
+	}
+
+	public String logout(String userName) throws DealerNotFoundException {
+		LOG.info("logout");
+		if (isLoggedIn) {
+			isLoggedIn = false;
+			return "Dealer logged out successfully.";
+		}
+		throw new DealerNotFoundException();
 	}
 
 

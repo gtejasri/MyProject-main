@@ -7,7 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.cg.dms.entities.Customer;
 import com.cg.dms.exception.CustomerAlreadyExistsException;
 import com.cg.dms.exception.CustomerNotFoundException;
@@ -20,6 +19,10 @@ public class CustomerService implements ICustomerService{
 
 	@Autowired
 	private ICustomerRepository icustomerRepository;
+	
+	public boolean isLoggedIn;
+
+	private Customer tempUser;
 
 //	public List<Customer>viewCustomers() throws CustomerNotFoundException;
 	public List<Customer>viewCustomers() throws CustomerNotFoundException{
@@ -80,5 +83,37 @@ public class CustomerService implements ICustomerService{
 		}
 
 	}
+	
+	
+	public Customer register(Customer customer) {
+		LOG.info("register");
+		if (null == icustomerRepository.findByUserName(customer.getUsername()))
+			return icustomerRepository.save(customer);
+		throw new CustomerAlreadyExistsException();
+	}
+
+	public Customer login(Customer customer) throws CustomerNotFoundException {
+		LOG.info("login");
+		tempUser = icustomerRepository.findByUserName(customer.getUsername());
+		if (null != tempUser) {
+			if (customer.equals(tempUser)) {
+				isLoggedIn = true;
+				LOG.info("Customer login successful");
+				return tempUser;
+			}
+		}
+		throw new CustomerNotFoundException();
+
+	}
+
+	public String logout(String userName) throws CustomerNotFoundException {
+		LOG.info("logout");
+		if (isLoggedIn) {
+			isLoggedIn = false;
+			return "Customer logged out successfully.";
+		}
+		throw new CustomerNotFoundException();
+	}
+
 
 }

@@ -5,8 +5,10 @@ import org.springframework.stereotype.Repository;
 
 import com.cg.dms.entities.Customer;
 
+
 @Repository
 public interface ICustomerRepository extends JpaRepository<Customer, Integer> {
 
+	public abstract Customer findByUserName(String userName);
 
 }

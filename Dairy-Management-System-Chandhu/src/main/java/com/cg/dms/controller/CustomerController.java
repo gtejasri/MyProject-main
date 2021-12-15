@@ -92,7 +92,32 @@ public class CustomerController {
 		}
 	}
 	
-	
+	// http://localhost:8082/customer/register
+			@PostMapping("/customer/register")
+			public ResponseEntity<Customer> register(@RequestBody Customer customer) {
+				LOG.info("register " + customer.toString());
+				HttpHeaders headers = new HttpHeaders();
+				headers.add("message", "Customer registered successfully.");
+				return new ResponseEntity<Customer>(customerservice.register(customer), headers, HttpStatus.CREATED);
+			}
+
+			// http://localhost:8082/customer/login
+			@PostMapping("/customer/login")
+			public ResponseEntity<Customer> login(@RequestBody Customer customer) throws CustomerNotFoundException {
+				LOG.info("login " + customer.toString());
+				HttpHeaders headers = new HttpHeaders();
+				headers.add("message", "Customer logged in successfully.");
+				return new ResponseEntity<Customer>(customerservice.login(customer), headers, HttpStatus.OK);
+			}
+
+			// http://localhost:8082/customer/logout
+			@PostMapping("/customer/logout")
+			public ResponseEntity<String> logout(@RequestBody String userName) throws CustomerNotFoundException {
+				LOG.info("Controller logout");
+				HttpHeaders headers = new HttpHeaders();
+				headers.add("message", "Customer logged out successfully.");
+				return new ResponseEntity<String>(customerservice.logout(userName), headers, HttpStatus.OK);
+			}
 	
 	
 
